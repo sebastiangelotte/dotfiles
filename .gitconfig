@@ -1,0 +1,8 @@
+[user]
+	email = sebastian.gelotte@gmail.com
+	name = Sebastian Gelotte
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
