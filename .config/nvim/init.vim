@@ -10,6 +10,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'rbong/vim-crystalline'
   Plug 'sheerun/vim-polyglot'
+  Plug 'mhinz/vim-startify'
 call plug#end()
 
 " *******************************
@@ -76,3 +77,23 @@ let g:crystalline_enable_sep = 1
 let g:crystalline_statusline_fn = 'StatusLine'
 let g:crystalline_theme = 'default'
 set laststatus=2
+
+" START SCREEN *******************
+let g:startify_lists = [
+  \ { 'type': 'files',     'header': ['   Recent']            },
+  \ { 'type': 'dir',       'header': ['   Recent '. getcwd()] },
+  \ { 'type': 'sessions',  'header': ['   Sessions']       },
+  \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+  \ { 'type': 'commands',  'header': ['   Commands']       },
+  \ ]
+
+let g:ascii = [
+  \ "   __    _ __    __    _     _ __    __    _ ",
+  \ "  / /__ (_) /__ / /__ (_)___(_) /__ / /__ (_)",
+  \ " /  '_// /  '_//  '_// / __/ /  '_//  '_// / ",
+  \ "/_/\\_\\/_/_/\\_\\/_/\\_\\/_/_/ /_/_/\\_\\/_/\\_\\/_/  ",
+  \ " "
+  \]
+
+let g:startify_custom_header =
+  \ 'startify#pad(g:ascii + startify#fortune#boxed())'
