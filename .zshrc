@@ -110,4 +110,4 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Alias for managing dotfiles with git (https://www.atlassian.com/git/tutorials/dotfiles)
-alias config='/usr/bin/git --git-dir=/home/kikkirikki/.cfg/'
+alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
