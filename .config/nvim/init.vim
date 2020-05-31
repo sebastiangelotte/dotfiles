@@ -17,6 +17,17 @@ call plug#end()
 " CUSTOM CONFIGS ****************
 " *******************************
 
+" GENERAL ************************* 
+" Absolute line numbers
+set number
+
+" Case insensitive searching
+set ignorecase
+set smartcase
+
+" Remove search highlighting on second <Enter>
+nnoremap <silent> <CR> :noh<CR><CR>
+
 " THEME ************************* 
 if (has("termguicolors"))
  set termguicolors
