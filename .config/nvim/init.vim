@@ -8,7 +8,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'rbong/vim-crystalline'
+"  Plug 'rbong/vim-crystalline'
   Plug 'sheerun/vim-polyglot'
   Plug 'mhinz/vim-startify'
 call plug#end()
@@ -19,11 +19,19 @@ call plug#end()
 
 " GENERAL ************************* 
 " Absolute line numbers
-set number
+"set number
+
+" Hybrid line number
+:set number relativenumber
+:set nu rnu
 
 " Case insensitive searching
 set ignorecase
 set smartcase
+
+" No wrapping of text
+set nowrap           " do not automatically wrap on load
+set formatoptions-=t " do not automatically wrap text when typing
 
 " Remove search highlighting on second <Enter>
 nnoremap <silent> <CR> :noh<CR><CR>
@@ -39,7 +47,6 @@ colorscheme dracula
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
-" let g:NERDTreeStatusline = ''
 let g:NERDTreeStatusline = '%#NonText#'
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -56,7 +63,7 @@ tnoremap <Esc> <C-\><C-n>
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 " open terminal on ctrl+n
 function! OpenTerminal()
-  split term://bash
+  split term://zsh
   resize 10
 endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
@@ -79,15 +86,12 @@ let g:fzf_action = {
   \}
 
 " VIM STATUS LINE ****************
-function! StatusLine(...)
-  return crystalline#mode() . crystalline#right_mode_sep('')
-        \ . ' %f%h%w%m%r ' . crystalline#right_sep('', 'Fill') . '%='
-        \ . crystalline#left_sep('', 'Fill') . ' %{&ft}[%{&fenc!=#""?&fenc:&enc}][%{&ff}] %l/%L %c%V %P '
-endfunction
-let g:crystalline_enable_sep = 1
-let g:crystalline_statusline_fn = 'StatusLine'
-let g:crystalline_theme = 'dracula'
-set laststatus=2
+" set tabline=%!crystalline#bufferline()
+set showtabline=2
+" set noshowmode
+set noruler
+set laststatus=0
+set noshowcmd
 
 " START SCREEN *******************
 let g:startify_lists = [
