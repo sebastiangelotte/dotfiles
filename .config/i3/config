@@ -177,6 +177,9 @@ for_window [title="Desktop — Plasma"] kill, floating enable, border none
 # launch polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
+# launch compton
+exec_always --no-startup-id compton -i 0.75 -b
+
 ### BORDERS AND STUFF ###
 set $bg-color 	         #383C4A
 set $bd-color		 #FF0069
