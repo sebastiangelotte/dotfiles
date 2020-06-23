@@ -168,6 +168,8 @@ for_window [class="(?i)*nextcloud*"] floating disable
 for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px
 no_focus [class="plasmashell" window_type="notification"] 
 
+for_window [title="Volume Control"] floating enable
+
 # Wallpaper
 exec --no-startup-id feh --bg-fill ~/Pictures/desktopbg.jpg
 # Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everythiing)
@@ -179,6 +181,9 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # launch compton
 exec_always --no-startup-id compton -i 0.75 -b
+
+# launch dunst
+exec_always --no-statup-id dunst -config ~/.config/dunst/dunstrc
 
 ### BORDERS AND STUFF ###
 set $bg-color 	         #383C4A
