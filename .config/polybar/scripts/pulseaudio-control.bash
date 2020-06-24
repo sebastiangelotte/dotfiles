@@ -25,6 +25,7 @@ SINK_BLACKLIST=(
 # Maps PulseAudio sink names to human-readable names
 declare -A SINK_NICKNAMES
 SINK_NICKNAMES["alsa_output.pci-0000_00_1f.3.analog-stereo"]="Speakers"
+SINK_NICKNAMES["alsa_output.usb-SteelSeries_SteelSeries_Arctis_7-00.analog-stereo"]="Headphones"
 
 
 # Environment & global constants for the script
