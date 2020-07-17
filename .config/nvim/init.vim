@@ -36,6 +36,14 @@ set formatoptions-=t " do not automatically wrap text when typing
 " Remove search highlighting on second <Enter>
 nnoremap <silent> <CR> :noh<CR><CR>
 
+" Make yanking/deleting operations automatically copy to system clipboard
+set clipboard=unnamedplus
+
+" Set default tab size
+set sts=2
+set ts=2
+set sw=2
+
 " THEME ************************* 
 if (has("termguicolors"))
  set termguicolors
@@ -49,7 +57,8 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = '%#NonText#'
 " Automaticaly close nvim if NERDTree is only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 " Toggle
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 
