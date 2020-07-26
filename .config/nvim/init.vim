@@ -11,6 +11,8 @@ call plug#begin("~/.vim/plugged")
 "  Plug 'rbong/vim-crystalline'
   Plug 'sheerun/vim-polyglot'
   Plug 'mhinz/vim-startify'
+	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+	Plug 'alvan/vim-closetag'
 call plug#end()
 
 " *******************************
@@ -30,8 +32,9 @@ set ignorecase
 set smartcase
 
 " No wrapping of text
-set nowrap           " do not automatically wrap on load
-set formatoptions-=t " do not automatically wrap text when typing
+set linebreak
+" set nowrap           " do not automatically wrap on load
+" set formatoptions-=t " do not automatically wrap text when typing
 
 " Remove search highlighting on second <Enter>
 nnoremap <silent> <CR> :noh<CR><CR>
@@ -43,6 +46,9 @@ set clipboard=unnamedplus
 set sts=2
 set ts=2
 set sw=2
+
+" Enable using mouse
+set mouse=a
 
 " THEME ************************* 
 if (has("termguicolors"))
@@ -121,3 +127,27 @@ let g:ascii = [
 
 let g:startify_custom_header =
   \ 'startify#pad(g:ascii + startify#fortune#boxed())'
+
+" VIM CLOSE TAG
+let g:closetag_filenames = '*.html,*.js,*.tsx'
+let g:closetag_xhtml_filenames = '*.xml,*.js,*.tsx'
+let g:closetag_filetypes = 'html,js,tsx'
+let g:closetag_xhtml_filetypes = 'xml,js,tsx'
+let g:closetag_emptyTags_caseSensitive = 1
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+let g:closetag_shortcut = '>'
+let g:closetag_close_shortcut = '<leader>>'
+
+" COC AUTO COMPLETE SUGGESTION WITH <TAB>
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()

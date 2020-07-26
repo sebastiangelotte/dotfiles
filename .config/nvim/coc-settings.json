@@ -4,5 +4,13 @@
     "json",
     "javascriptreact"
   ],
-  "eslint.filetypes": ["javascript", "javascriptreact"]
+  "eslint.filetypes": ["javascript", "javascriptreact"],
+	"pairs.enableCharacters": [
+		"(",
+		"[",
+		"{",
+		"'",
+		"\"",
+		"`"
+	]
 }
