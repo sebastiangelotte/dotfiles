@@ -5,6 +5,7 @@
     "javascriptreact"
   ],
   "eslint.filetypes": ["javascript", "javascriptreact"],
+  "eslint.enable": false,
 	"pairs.enableCharacters": [
 		"(",
 		"[",
@@ -12,5 +13,8 @@
 		"'",
 		"\"",
 		"`"
-	]
+	],
+  "diagnostic.errorSign": "🔥",
+  "diagnostic.warningSign": "🔥",
+  "diagnostic.infoSign": "🔥"
 }

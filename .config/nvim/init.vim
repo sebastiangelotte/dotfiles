@@ -1,6 +1,7 @@
-" *******************************
-" PLUGINS ***********************
-" *******************************
+" ********************************************************************
+" PLUGINS ************************************************************
+" ********************************************************************
+
 call plug#begin("~/.vim/plugged")
   Plug 'dracula/vim'
   Plug 'scrooloose/nerdtree'
@@ -9,23 +10,29 @@ call plug#begin("~/.vim/plugged")
   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "  Plug 'rbong/vim-crystalline'
+  Plug 'itchyny/lightline.vim'
   Plug 'sheerun/vim-polyglot'
   Plug 'mhinz/vim-startify'
 	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 	Plug 'alvan/vim-closetag'
 call plug#end()
 
-" *******************************
-" CUSTOM CONFIGS ****************
-" *******************************
 
-" GENERAL ************************* 
+" ********************************************************************
+" CUSTOM CONFIGS *****************************************************
+" ********************************************************************
+
+
+" GENERAL ************************************************************
+" (Re-)source init.vim with F5
+nnoremap <F5> :source $MYVIMRC<cr>
+
 " Absolute line numbers
-"set number
+set number
 
 " Hybrid line number
-:set number relativenumber
-:set nu rnu
+"set number relativenumber
+"set nu rnu
 
 " Case insensitive searching
 set ignorecase
@@ -36,13 +43,23 @@ set linebreak
 " set nowrap           " do not automatically wrap on load
 " set formatoptions-=t " do not automatically wrap text when typing
 
-" Remove search highlighting on second <Enter>
+" Remove search highlighting on second <Enter> or <Esc>
 nnoremap <silent> <CR> :noh<CR><CR>
+nnoremap <silent><esc> :noh<return><esc>
 
-" Make yanking/deleting operations automatically copy to system clipboard
+" Copy/Paste/Cut
 set clipboard=unnamedplus
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus
+endif
+noremap YY "+y<CR>
+noremap <leader>p "+gP<CR>
+noremap XX "+x<CR>
 
-" Set default tab size
+" Indentation
+set smarttab
+set expandtab
+set autoindent
 set sts=2
 set ts=2
 set sw=2
@@ -50,14 +67,30 @@ set sw=2
 " Enable using mouse
 set mouse=a
 
-" THEME ************************* 
+" Control-S Save
+nmap <C-S> :w<cr>
+vmap <C-S> <esc>:w<cr>
+imap <C-S> <esc>:w<cr>
+" Save + back into insert
+" imap <C-S> <esc>:w<cr>a
+
+" Control-C Copy in visual mode
+vmap <C-C> y
+
+" Control-V Paste in insert and command mode
+imap <C-V> <esc>pa
+cmap <C-V> <C-r>0
+
+
+" THEME **************************************************************
 if (has("termguicolors"))
  set termguicolors
 endif
 syntax enable
 colorscheme dracula
 
-" NERDTree ***********************
+
+" NERDTree ***********************************************************
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
@@ -65,23 +98,26 @@ let g:NERDTreeStatusline = '%#NonText#'
 " Automaticaly close nvim if NERDTree is only thing left open
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Toggle
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 
-" TERMINAL ***********************
+
+" TERMINAL ************************************************************
 " open new split panes to right and below
 set splitright
 set splitbelow
 " turn terminal to normal mode with escape
 tnoremap <Esc> <C-\><C-n>
+
 " start terminal in insert mode
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+
 " open terminal on ctrl+n
 function! OpenTerminal()
   split term://zsh
   resize 10
 endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
+
 " use alt+hjkl to move between split/vsplit panels
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
@@ -92,23 +128,78 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
-" FUZZY SEARCH *******************
-nnoremap <C-p> :FZF<CR>
+
+" FUZZY SEARCH *******************************************************
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
+  \ 'ctrl-c': 'split',
   \ 'ctrl-v': 'vsplit'
   \}
+let $FZF_DEFAULT_OPTS='--layout=reverse --margin=1,2 --info=hidden' 
 
-" VIM STATUS LINE ****************
+
+" Keybindings
+nnoremap <silent> <C-p> :FindFile<CR>
+nnoremap <silent> <A-f> :SearchInAllFiles<cr>
+
+" Commands
+command! -bang -nargs=? -complete=dir FindFile call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': '--prompt 🔍'}), <bang>0)
+command! -nargs=* -bang SearchInAllFiles call RipgrepFzf(<q-args>, <bang>0)
+
+" Advanced ripgrep integration
+" https://github.com/junegunn/fzf.vim/#example-advanced-ripgrep-integration
+" --column and --line-number NEEDS to be set or it won't work properly
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--prompt', '🔍', '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+" Hide status line when fzf is active
+autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+
+" Floating FZF window
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+function! FloatingFZF()
+    let width = min([&columns - 4, max([80, &columns - 20])])
+    let height = min([&lines - 4, max([20, &lines - 10])])
+    let top = ((&lines - height) / 2) - 1
+    let left = (&columns - width) / 2
+    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
+
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    let lines = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+    set winhl=Normal:Floating
+    let opts.row += 1
+    let opts.height -= 2
+    let opts.col += 2
+    let opts.width -= 4
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    au BufWipeout <buffer> exe 'bw '.s:buf
+    " Close border-window AND buffer window on focus lost and on <Esc>
+    " https://www.reddit.com/r/neovim/comments/ekzhme/help_wanted_changing_keymap_for_floating_window/
+    tnoremap <buffer> <silent> <Esc> <C-\><C-n><CR>:bw!<CR>
+endfunction
+
+
+" VIM STATUS LINE ***************************************************
 " set tabline=%!crystalline#bufferline()
-set showtabline=2
-" set noshowmode
-set noruler
-set laststatus=0
-set noshowcmd
+" set showtabline=2
+set noshowmode
+" set noruler
+set laststatus=2
+" set noshowcmd
 
-" START SCREEN *******************
+
+" START SCREEN ******************************************************
 let g:startify_lists = [
   \ { 'type': 'files',     'header': ['   Recent']            },
   \ { 'type': 'dir',       'header': ['   Recent '. getcwd()] },
@@ -128,7 +219,7 @@ let g:ascii = [
 let g:startify_custom_header =
   \ 'startify#pad(g:ascii + startify#fortune#boxed())'
 
-" VIM CLOSE TAG
+" VIM CLOSE TAG *****************************************************
 let g:closetag_filenames = '*.html,*.js,*.tsx'
 let g:closetag_xhtml_filenames = '*.xml,*.js,*.tsx'
 let g:closetag_filetypes = 'html,js,tsx'
@@ -141,7 +232,7 @@ let g:closetag_regions = {
 let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 
-" COC AUTO COMPLETE SUGGESTION WITH <TAB>
+" COC AUTO COMPLETE SUGGESTION WITH <TAB> ***************************
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -151,3 +242,12 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+
+" LIGHTLINE ********************************************************
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'right': [ ['lineinfo'] ],
+      \   'left': [ ['mode'], ['filename'] ]
+      \ }
+      \ }
