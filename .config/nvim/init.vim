@@ -15,6 +15,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'mhinz/vim-startify'
 	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 	Plug 'alvan/vim-closetag'
+  Plug 'matze/vim-move'
 call plug#end()
 
 
@@ -118,15 +119,19 @@ function! OpenTerminal()
 endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
 
-" use alt+hjkl to move between split/vsplit panels
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+" use Ctrl+hjkl to move between split/vsplit panels
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" close panel with Ctrl+w
+tnoremap <C-w> :q <CR>
+nnoremap <C-w> :q <CR>
 
 
 " FUZZY SEARCH *******************************************************
@@ -160,10 +165,12 @@ endfunction
 " Hide status line when fzf is active
 autocmd! FileType fzf set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
+" Open FZF in floating window
+let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
 
-" Floating FZF window
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-function! FloatingFZF()
+
+" FLOATING WINDOW ***************************************************
+function! CreateCenteredFloatingWindow()
     let width = min([&columns - 4, max([80, &columns - 20])])
     let height = min([&lines - 4, max([20, &lines - 10])])
     let top = ((&lines - height) / 2) - 1
@@ -176,19 +183,37 @@ function! FloatingFZF()
     let lines = [top] + repeat([mid], height - 2) + [bot]
     let s:buf = nvim_create_buf(v:false, v:true)
     call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-    call nvim_open_win(s:buf, v:true, opts)
+    let win1 = nvim_open_win(s:buf, v:true, opts)
     set winhl=Normal:Floating
     let opts.row += 1
     let opts.height -= 2
     let opts.col += 2
     let opts.width -= 4
-    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    let win2 = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
     au BufWipeout <buffer> exe 'bw '.s:buf
-    " Close border-window AND buffer window on focus lost and on <Esc>
+    " Close border-window AND buffer window on <Esc>
     " https://www.reddit.com/r/neovim/comments/ekzhme/help_wanted_changing_keymap_for_floating_window/
-    tnoremap <buffer> <silent> <Esc> <C-\><C-n><CR>:bw!<CR>
+    tnoremap <silent> <buffer> <Esc> <C-\><C-n><CR>:bw!<CR>
 endfunction
 
+function! ToggleTerm(cmd)
+    if empty(bufname(a:cmd))
+        call CreateCenteredFloatingWindow()
+        call termopen(a:cmd, { 'on_exit': function('OnTermExit') })
+    else
+        bwipeout!
+    endif
+endfunction
+
+function! OnTermExit(job_id, code, event) dict
+    if a:code == 0
+        bwipeout!
+    endif
+endfunction
+
+" Cool programs started in floting window
+nnoremap <silent> <F1> :call ToggleTerm('lazygit')<CR> i
+nnoremap <silent> <F2> :call ToggleTerm('htop')<CR> i
 
 " VIM STATUS LINE ***************************************************
 " set tabline=%!crystalline#bufferline()
@@ -197,6 +222,13 @@ set noshowmode
 " set noruler
 set laststatus=2
 " set noshowcmd
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'right': [ ['lineinfo'] ],
+      \   'left': [ ['filename'] ]
+      \ }
+      \ }
 
 
 " START SCREEN ******************************************************
@@ -219,6 +251,7 @@ let g:ascii = [
 let g:startify_custom_header =
   \ 'startify#pad(g:ascii + startify#fortune#boxed())'
 
+
 " VIM CLOSE TAG *****************************************************
 let g:closetag_filenames = '*.html,*.js,*.tsx'
 let g:closetag_xhtml_filenames = '*.xml,*.js,*.tsx'
@@ -232,6 +265,7 @@ let g:closetag_regions = {
 let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 
+
 " COC AUTO COMPLETE SUGGESTION WITH <TAB> ***************************
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -243,11 +277,4 @@ inoremap <silent><expr> <Tab>
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 
-" LIGHTLINE ********************************************************
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'right': [ ['lineinfo'] ],
-      \   'left': [ ['mode'], ['filename'] ]
-      \ }
-      \ }
+
