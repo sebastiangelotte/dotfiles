@@ -2,12 +2,12 @@
 " PLUGINS ************************************************************
 " ********************************************************************
 
-call plug#begin("~/.vim/plugged")
-  Plug 'dracula/vim'
-  Plug 'scrooloose/nerdtree'
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
+" all plug#begin("~/.vim/plugged")
+"   Plug 'dracula/vim'
+"   Plug 'scrooloose/nerdtree'
+"   Plug 'ryanoasis/vim-devicons'
+"   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "  Plug 'rbong/vim-crystalline'
   Plug 'itchyny/lightline.vim'
@@ -16,6 +16,7 @@ call plug#begin("~/.vim/plugged")
 	Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 	Plug 'alvan/vim-closetag'
   Plug 'matze/vim-move'
+  Plug 'tpope/vim-commentary'
 call plug#end()
 
 
@@ -82,6 +83,9 @@ vmap <C-C> y
 imap <C-V> <esc>pa
 cmap <C-V> <C-r>0
 
+" Comment
+map <A-'> <plug>Commentary
+
 
 " THEME **************************************************************
 if (has("termguicolors"))
@@ -120,14 +124,14 @@ endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
 
 " use Ctrl+hjkl to move between split/vsplit panels
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-w>k
-tnoremap <C-l> <C-\><C-n><C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+tnoremap <C-A-h> <C-\><C-n><C-w>h
+tnoremap <C-A-j> <C-\><C-n><C-w>j
+tnoremap <C-A-k> <C-\><C-n><C-w>k
+tnoremap <C-A-l> <C-\><C-n><C-w>l
+nnoremap <C-A-h> <C-w>h
+nnoremap <C-A-j> <C-w>j
+nnoremap <C-A-k> <C-w>k
+nnoremap <C-A-l> <C-w>l
 
 " close panel with Ctrl+w
 tnoremap <C-w> :q <CR>
