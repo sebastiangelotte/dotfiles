@@ -88,6 +88,13 @@ cmap <C-V> <C-r>0
 " Comment
 map <A-'> <plug>Commentary
 
+" New line and backspace without insert mode
+nmap <CR> o<Esc>
+nmap <BS> i<BS><Esc>l
+
+" Use tab-button for tabbing in normal mode
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
 
 " THEME **************************************************************
 if (has("termguicolors"))
