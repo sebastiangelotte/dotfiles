@@ -220,6 +220,7 @@ endfunction
 " Cool programs started in floting window
 nnoremap <silent> <F1> :call ToggleTerm('lazygit')<CR> i
 nnoremap <silent> <F2> :call ToggleTerm('htop')<CR> i
+nnoremap <silent> <F3> :call ToggleTerm('zsh')<CR> i
 
 " VIM STATUS LINE ***************************************************
 " set tabline=%!crystalline#bufferline()
