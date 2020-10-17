@@ -186,6 +186,9 @@ exec_always --no-startup-id compton -i 0.75 -b
 # launch dunst
 exec_always --no-statup-id dunst -config ~/.config/dunst/dunstrc
 
+# launch auth agent/polkit
+exec_always /usr/lib/polkit-kde-authentication-agent-1
+
 ### BORDERS AND STUFF ###
 set $bg-color 	         #383C4A
 set $bd-color		 #FF0069
