@@ -169,6 +169,7 @@ no_focus [class="plasmashell" window_type="notification"]
 for_window [title="Volume Control"] floating enable
 for_window [class="Steam"] floating enable
 for_window [class="Mumble"] floating enable
+for_window [class="dolphin"] floating enable
 
 # Wallpaper
 exec --no-startup-id feh --bg-fill ~/Pictures/desktopbg.jpg
