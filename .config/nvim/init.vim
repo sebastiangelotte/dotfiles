@@ -17,6 +17,7 @@ call plug#begin("~/.vim/plugged")
 	Plug 'alvan/vim-closetag'
   Plug 'matze/vim-move'
   Plug 'tpope/vim-commentary'
+  Plug 'danilamihailov/beacon.nvim'
 call plug#end()
 
 
