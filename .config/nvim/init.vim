@@ -177,7 +177,7 @@ let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
 
 " FLOATING WINDOW ***************************************************
 function! CreateCenteredFloatingWindow()
-    let width = min([&columns - 4, max([80, &columns - 20])])
+    let width = min([&columns - 4, max([80, &columns - 30])])
     let height = min([&lines - 4, max([20, &lines - 10])])
     let top = ((&lines - height) / 2) - 1
     let left = (&columns - width) / 2
