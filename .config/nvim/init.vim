@@ -18,6 +18,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'matze/vim-move'
   Plug 'tpope/vim-commentary'
   Plug 'danilamihailov/beacon.nvim'
+  Plug 'yardnsm/vim-import-cost', { 'do': 'npm install' }
 call plug#end()
 
 
@@ -282,4 +283,11 @@ inoremap <silent><expr> <Tab>
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 
-
+" IMPORT COST *******************************************************
+" Trigger :ImportCost when buffer is updated
+augroup import_cost_auto_run
+  autocmd!
+  autocmd InsertLeave *.js,*.jsx,*.ts,*.tsx ImportCost
+  autocmd BufEnter *.js,*.jsx,*.ts,*.tsx ImportCost
+  autocmd CursorHold *.js,*.jsx,*.ts,*.tsx ImportCost
+augroup END
