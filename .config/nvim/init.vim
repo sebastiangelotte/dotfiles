@@ -32,6 +32,10 @@ call plug#end()
 " (Re-)source init.vim with F5
 nnoremap <F5> :source $MYVIMRC<cr>
 
+" Leader
+nmap <SPACE> <Nop>
+let mapleader=" "
+
 " Absolute line numbers
 set number
 
