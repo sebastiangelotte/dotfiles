@@ -239,6 +239,9 @@ set laststatus=2
 " set noshowcmd
 let g:lightline = {
       \ 'colorscheme': 'wombat',
+      \ 'enable': {
+      \   'tabline': 0
+      \ },
       \ 'active': {
       \   'right': [ ['lineinfo'] ],
       \   'left': [ ['filename'] ]
