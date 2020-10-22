@@ -19,6 +19,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'tpope/vim-commentary'
   Plug 'danilamihailov/beacon.nvim'
   Plug 'yardnsm/vim-import-cost', { 'do': 'npm install' }
+  Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 
@@ -299,3 +300,6 @@ augroup import_cost_auto_run
   autocmd BufEnter *.js,*.jsx,*.ts,*.tsx ImportCost
   autocmd CursorHold *.js,*.jsx,*.ts,*.tsx ImportCost
 augroup END
+
+" EASYMOTION ********************************************************
+nmap s <Plug>(easymotion-s)
