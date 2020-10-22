@@ -27,7 +27,8 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 # Alias for managing dotfiles with git (https://www.atlassian.com/git/tutorials/dotfiles)
-alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+# alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+alias config="lazygit --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias timelapse="~/bin/timelapse.sh"
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
