@@ -57,13 +57,10 @@ nnoremap <silent> <CR> :noh<CR><CR>
 nnoremap <silent><esc> :noh<return><esc>
 
 " Copy/Paste/Cut
-set clipboard=unnamedplus
 if has('unnamedplus')
   set clipboard=unnamed,unnamedplus
 endif
 noremap YY "+y<CR>
-noremap <leader>p "+gP<CR>
-noremap XX "+x<CR>
 
 " Indentation
 set smarttab
@@ -82,13 +79,6 @@ vmap <C-S> <esc>:w<cr>
 imap <C-S> <esc>:w<cr>
 " Save + back into insert
 " imap <C-S> <esc>:w<cr>a
-
-" Control-C Copy in visual mode
-vmap <C-C> y
-
-" Control-V Paste in insert and command mode
-imap <C-V> <esc>pa
-cmap <C-V> <C-r>0
 
 " Comment
 map <A-'> <plug>Commentary
