@@ -97,6 +97,12 @@ nmap <BS> i<BS><Esc>l
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
 
+" Tabs
+nnoremap <C-t> :tabnew<CR>
+inoremap <C-t> <Esc>:tabnew<CR>
+nnoremap tg :tabprevious<CR>
+
+
 " THEME **************************************************************
 if (has("termguicolors"))
  set termguicolors
