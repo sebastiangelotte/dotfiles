@@ -1,6 +1,6 @@
 ### BASIC DEFINITIONS ###
-set $inner_gaps 15
-set $outer_gaps 15
+set $inner_gaps 40
+set $outer_gaps 0
 set $mod Mod4
 set $ws1 "1"
 set $ws2 "2"
