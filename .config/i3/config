@@ -13,6 +13,17 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
+# Monitors (run xrand to find names)
+set $mon1 DP-2
+set $mon2 DVI-D-0
+
+# Odd workspaces on $mon1, even on $mon2
+workspace $ws1 output $mon1
+workspace $ws2 output $mon2
+workspace $ws3 output $mon1
+workspace $ws4 output $mon2
+
+
 ### GAPS ###
 for_window [class="^.*"] border pixel 2
 gaps inner $inner_gaps
