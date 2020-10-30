@@ -28,7 +28,7 @@ workspace $ws4 output $mon2
 exec_always --no-startup-id i3-msg 'workspace $ws2; exec telegram-desktop; exec com.slack.Slack'
 
 ### GAPS ###
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 0
 gaps inner $inner_gaps
 gaps outer $outer_gaps
 
