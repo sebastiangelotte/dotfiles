@@ -196,17 +196,17 @@ exec_always /usr/lib/polkit-kde-authentication-agent-1
 
 ### BORDERS AND STUFF ###
 set $bg-color 	         #383C4A
-set $bd-color		 #FF0069
+set $bd-color		         #FF0069
 set $inactive-bg-color   #383C4A
 set $inactive-bd-color	 #383C4A
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
-#			        border		background	text	 	 	indicator	child border 
-client.focused          	$bd-color	$bg-color	$text-color   		$bd-color	$bd-color  
-client.unfocused        	$bg-color	$bg-color 	$inactive-text-color 	$bg-color	$bg-color
-client.focused_inactive		$bg-color	$bg-color	$inactive-text-color 	$bg-color	$bg-color
-client.urgent           	$bg-color   	$bg-color	$text-color		$bg-color	$bg-color
-client.background  		$bg-color
+#			                    border		    background  text	 	 	            indicator	  child border 
+client.focused          	$bd-color	    $bg-color	  $text-color   	      $bd-color	  $bd-color  
+client.unfocused        	$bg-color	    $bg-color 	$inactive-text-color 	$bg-color	  $bg-color
+client.focused_inactive		$bg-color     $bg-color	  $inactive-text-color 	$bg-color	  $bg-color
+client.urgent           	$bg-color   	$bg-color	  $text-color		        $bg-color	  $bg-color
+client.background  		    $bg-color
 
 ### i3-resurrect ###
 set $i3_resurrect i3-resurrect
