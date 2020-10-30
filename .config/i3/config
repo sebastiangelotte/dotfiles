@@ -183,7 +183,10 @@ for_window [title="Desktop — Plasma"] kill, floating enable, border none
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # launch compton
-exec_always --no-startup-id compton -i 0.75 -b
+# exec_always --no-startup-id compton -i 0.75 -b
+
+# launch picom (compositor)
+exec_always --no-startup-id picom --experimental-backends
 
 # launch dunst
 exec_always --no-statup-id dunst -config ~/.config/dunst/dunstrc
