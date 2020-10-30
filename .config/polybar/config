@@ -61,6 +61,10 @@ label = %title:0:30:...%
 
 [module/i3]
 type = internal/i3
+ws-icon-0 = "1; "
+ws-icon-1 = "2; "
+ws-icon-2 = "3;謹 "
+ws-icon-default = " "
 format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
