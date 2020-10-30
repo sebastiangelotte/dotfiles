@@ -10,22 +10,22 @@ OSD="no"  # On Screen Display message for KDE if enabled
 INC=2  # Increment when lowering/rising the volume
 MAX_VOL=130  # Maximum volume
 AUTOSYNC="no"  # All programs have the same volume if enabled
-VOLUME_ICONS=( "# " "# " "# " )  # Volume icons array, from lower volume to higher
-MUTED_ICON="# "  # Muted volume icon
+VOLUME_ICONS=( "奄 " "奔 " "墳 " )  # Volume icons array, from lower volume to higher
+MUTED_ICON="婢 "  # Muted volume icon
 MUTED_COLOR="%{F#6b6b6b}"  # Color when the audio is muted
 NOTIFICATIONS="no"  # Notifications when switching sinks if enabled
-SINK_ICON="# "  # Icon always shown to the left of the default sink names
+SINK_ICON=""  # Icon always shown to the left of the default sink names
 
 # Blacklist of PulseAudio sink names when switching between them. To obtain
 # the names of your active sinks, use `pactl list sinks short`.
 SINK_BLACKLIST=(
-    "alsa_output.usb-SinkYouDontUse-00.analog-stereo"
+    "alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1"
 )
 
 # Maps PulseAudio sink names to human-readable names
 declare -A SINK_NICKNAMES
-SINK_NICKNAMES["alsa_output.pci-0000_00_1f.3.analog-stereo"]="Speakers"
-SINK_NICKNAMES["alsa_output.usb-SteelSeries_SteelSeries_Arctis_7-00.analog-stereo"]="Headphones"
+SINK_NICKNAMES["alsa_output.pci-0000_00_1f.3.analog-stereo"]="蓼"
+SINK_NICKNAMES["alsa_output.usb-SteelSeries_SteelSeries_Arctis_7-00.analog-stereo"]=""
 
 
 # Environment & global constants for the script
