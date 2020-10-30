@@ -39,3 +39,6 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 fzf#vim#with_preview()
 
 export BAT_THEME="Dracula"
+
+# fix weird %-character on new windows https://github.com/vercel/hyper/issues/2144
+unsetopt PROMPT_SP
