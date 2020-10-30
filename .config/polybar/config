@@ -48,7 +48,7 @@ modules-center = xwindow
 modules-right = memory cpu pulseaudio-control powermenu date
 
 tray-position = right
-tray-padding = 2
+tray-padding = 1
 ;tray-background = #0063ff
 
 ;wm-restack = bspwm
