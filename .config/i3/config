@@ -25,7 +25,7 @@ workspace $ws4 output $mon2
 
 
 # create workspaces, populate with applicatios
-exec_always --no-startup-id i3-msg 'workspace $ws2; exec telegram-desktop; exec com.slack.Slack'
+exec_always --no-startup-id i3-msg 'workspace $ws2; exec telegram-desktop; exec com.slack.Slack; exec whalebird'
 
 ### GAPS ###
 for_window [class="^.*"] border pixel 0
