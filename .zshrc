@@ -30,6 +30,8 @@ source $ZSH/oh-my-zsh.sh
 # alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias config="lazygit --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias timelapse="~/bin/timelapse.sh"
+alias pop="~/bin/pop.sh"
+alias civ="lazygit --git-dir=$HOME/.local/share/lutris/runners/winesteam/prefix64/drive_c/Program\ Files\ \(x86\)/Steam/steamapps/common/Sid\ Meier\'s\ Civilization\ V/Assets/DLC/.git --work-tree=$HOME/.local/share/lutris/runners/winesteam/prefix64/drive_c/Program\ Files\ \(x86\)/Steam/steamapps/common/Sid\ Meier\'s\ Civilization\ V/Assets/DLC"
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
@@ -42,3 +44,5 @@ export BAT_THEME="Dracula"
 
 # fix weird %-character on new windows https://github.com/vercel/hyper/issues/2144
 unsetopt PROMPT_SP
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
