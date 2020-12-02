@@ -20,6 +20,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'danilamihailov/beacon.nvim'
   Plug 'yardnsm/vim-import-cost', { 'do': 'npm install' }
   Plug 'easymotion/vim-easymotion'
+"  Plug 'styled-components/vim-styled-components', {'branch': 'main'}
 call plug#end()
 
 
