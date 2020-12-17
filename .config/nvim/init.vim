@@ -97,6 +97,11 @@ nnoremap <C-t> :tabnew<CR>
 inoremap <C-t> <Esc>:tabnew<CR>
 nnoremap tg :tabprevious<CR>
 
+" Jump with Ctrl+hjkl
+nnoremap <C-j> 10j
+nnoremap <C-k> 10k
+nnoremap <C-h> 0
+nnoremap <C-l> $
 
 " THEME **************************************************************
 if (has("termguicolors"))
